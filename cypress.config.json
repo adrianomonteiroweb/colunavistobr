@@ -1,0 +1,10 @@
+{
+  "baseUrl": "http://localhost:3000",
+  "video": false,
+  "supportFile": "cypress/support/e2e.ts",
+  "fixturesFolder": "cypress/fixtures",
+  "e2e": {
+    "setupNodeEvents": "cypress/support/e2e.ts",
+    "specPattern": "cypress/e2e/**/*.cy.{js,ts}"
+  }
+}

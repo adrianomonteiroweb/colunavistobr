@@ -1,0 +1,22 @@
+{
+  "name": "@agendei/rrule",
+  "version": "0.1.0",
+  "description": "RRule utilities for Agendei appointment scheduling",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "rrule": "^2.8.1",
+    "date-fns": "^3.6.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5",
+    "@types/node": "^20.14.9"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}

@@ -1,0 +1,333 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page should match snapshot 1`] = `
+<DocumentFragment>
+  <main
+    class="min-h-screen bg-white"
+  >
+    <section
+      class="relative bg-white py-8 md:py-12 px-4"
+    >
+      <div
+        class="container mx-auto max-w-7xl"
+      >
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6"
+        >
+          <div
+            class="text-card-foreground gap-6 rounded-xl border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col justify-between"
+            data-slot="card"
+          >
+            <div>
+              <div
+                class="inline-flex items-center bg-white rounded-full px-3 py-1 mb-3"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-heart h-3 w-3 text-gray-600 mr-1"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
+                  />
+                </svg>
+                <span
+                  class="text-xs text-gray-700 font-medium"
+                >
+                  Projeto Social
+                </span>
+              </div>
+              <h2
+                class="text-xl md:text-2xl font-bold text-gray-900 mb-2 leading-tight"
+              >
+                Coluna Visto BR: Transformando Vidas no Brasil
+              </h2>
+              <p
+                class="text-sm text-gray-600 leading-relaxed mb-4"
+              >
+                Levamos amor, educação e dignidade para comunidades vulneráveis. Conheça a missão de Victoria Barros e como você pode fazer a diferença.
+              </p>
+            </div>
+            <a
+              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shadow-xs h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 bg-gray-900 hover:bg-gray-800 text-white w-full"
+              data-slot="button"
+              href="#sobre"
+            >
+              Saiba Mais
+            </a>
+          </div>
+          <div
+            class="text-card-foreground gap-6 rounded-xl border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col items-center text-center"
+            data-slot="card"
+          >
+            <div
+              class="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-3"
+            >
+              <img
+                alt="Victoria Barros"
+                class="rounded-full object-cover w-full h-full border-2 border-green-100"
+                data-nimg="1"
+                decoding="async"
+                height="200"
+                loading="lazy"
+                src="/placeholder.svg?height=200&width=200"
+                style="color: transparent;"
+                width="200"
+              />
+            </div>
+            <h3
+              class="text-lg md:text-xl font-bold text-gray-900 mb-1"
+            >
+              Victoria Barros
+            </h3>
+            <p
+              class="text-sm text-gray-600 mb-4"
+            >
+              Fundadora e Coração do Projeto
+            </p>
+            <a
+              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 border-gray-300 text-gray-700 hover:bg-gray-100 w-full bg-transparent"
+              data-slot="button"
+              href="#biografia"
+            >
+              Conheça a Victoria
+            </a>
+          </div>
+          <div
+            class="text-card-foreground gap-6 rounded-xl border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col justify-between"
+            data-slot="card"
+          >
+            <div>
+              <h3
+                class="text-xl font-bold text-gray-900 mb-3"
+              >
+                Doação Rápida via PIX
+              </h3>
+              <p
+                class="text-sm text-gray-700 mb-3"
+              >
+                Sua ajuda transforma vidas!
+              </p>
+              <div
+                class="bg-white rounded-lg p-4 mb-4 shadow-sm"
+              >
+                <img
+                  alt="QR Code PIX"
+                  class="mx-auto"
+                  data-nimg="1"
+                  decoding="async"
+                  height="150"
+                  loading="lazy"
+                  src="/placeholder.svg?height=150&width=150"
+                  style="color: transparent;"
+                  width="150"
+                />
+                <p
+                  class="text-gray-600 text-xs mt-2"
+                >
+                  Escaneie o QR Code com seu app bancário
+                </p>
+              </div>
+              <div
+                class="bg-white border rounded-lg p-3 mb-3"
+              >
+                <p
+                  class="text-gray-600 text-xs mb-1"
+                >
+                  Chave PIX:
+                </p>
+                <div
+                  class="flex items-center justify-between gap-2"
+                >
+                  <code
+                    class="text-base font-mono text-gray-900 bg-gray-100 px-2 py-1 rounded break-all"
+                  >
+                    13996841291
+                  </code>
+                  <button
+                    class="justify-center whitespace-nowrap font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive border shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50 h-8 rounded-md px-3 has-[>svg]:px-2.5 flex items-center gap-1 bg-transparent text-xs"
+                    data-slot="button"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-copy h-3 w-3"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        height="14"
+                        rx="2"
+                        ry="2"
+                        width="14"
+                        x="8"
+                        y="8"
+                      />
+                      <path
+                        d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                      />
+                    </svg>
+                    Copiar
+                  </button>
+                </div>
+              </div>
+            </div>
+            <a
+              class="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive shadow-xs h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5 bg-green-600 hover:bg-green-700 text-white w-full"
+              data-slot="button"
+              href="#doacoes"
+            >
+              Doar Agora
+            </a>
+          </div>
+          <div
+            class="text-card-foreground gap-6 rounded-xl border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col justify-between"
+            data-slot="card"
+          >
+            <div>
+              <h3
+                class="text-xl font-bold text-gray-900 mb-3"
+              >
+                Siga Nossas Redes
+              </h3>
+              <p
+                class="text-sm text-gray-700 mb-4"
+              >
+                Acompanhe nosso trabalho de perto!
+              </p>
+            </div>
+            <div
+              class="flex flex-wrap justify-center gap-4"
+            >
+              <a
+                aria-label="Siga-nos no Instagram"
+                class="text-gray-700 hover:text-gray-900 transition-colors flex items-center space-x-1"
+                href="https://instagram.com/colunavisto.br"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-instagram h-5 w-5 text-pink-600"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    height="20"
+                    rx="5"
+                    ry="5"
+                    width="20"
+                    x="2"
+                    y="2"
+                  />
+                  <path
+                    d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
+                  />
+                  <line
+                    x1="17.5"
+                    x2="17.51"
+                    y1="6.5"
+                    y2="6.5"
+                  />
+                </svg>
+                <span
+                  class="text-sm font-medium hidden sm:inline"
+                >
+                  Instagram
+                </span>
+                 
+              </a>
+              <a
+                aria-label="Siga-nos no Facebook"
+                class="text-gray-700 hover:text-gray-900 transition-colors flex items-center space-x-1"
+                href="https://facebook.com/tvcolunavisto"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-facebook h-5 w-5 text-blue-600"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"
+                  />
+                </svg>
+                <span
+                  class="text-sm font-medium hidden sm:inline"
+                >
+                  Facebook
+                </span>
+                 
+              </a>
+              <a
+                aria-label="Siga-nos no YouTube"
+                class="text-gray-700 hover:text-gray-900 transition-colors flex items-center space-x-1"
+                href="https://youtube.com/@victoriabarros.colunavisto"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-youtube h-5 w-5 text-red-600"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"
+                  />
+                  <path
+                    d="m10 15 5-3-5-3z"
+                  />
+                </svg>
+                <span
+                  class="text-sm font-medium hidden sm:inline"
+                >
+                  YouTube
+                </span>
+                 
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</DocumentFragment>
+`;
