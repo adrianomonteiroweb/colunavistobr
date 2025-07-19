@@ -1,13 +1,8 @@
 import { asc, eq, ilike, and } from "drizzle-orm";
 
 import BaseRepository from "./BaseRepository";
-import { users, professionals } from "../schema";
-import type {
-  GetUserParams,
-  User,
-  UserRole,
-  PaginatedResponse,
-} from "../types";
+import { users } from "../schema";
+import type { GetUserParams, User, UserRole } from "../types";
 
 export class UserRepository extends BaseRepository {
   static override model = users;
@@ -17,7 +12,13 @@ export class UserRepository extends BaseRepository {
     page = 1,
     page_size = 10,
     role,
-  }: GetUserParams = {}): Promise<PaginatedResponse<User>> {
+  }: GetUserParams = {}): Promise<{
+    count: number;
+    data: User[];
+    page: number;
+    page_size: number;
+    total_pages: number;
+  }> {
     const limit = page_size || 10;
     const offset = ((page || 1) - 1) * page_size;
 
@@ -83,34 +84,6 @@ export class UserRepository extends BaseRepository {
 
   static async getAllPatientusers(): Promise<User[]> {
     return await this.findAll(eq(users.role, "patient"));
-  }
-
-  static async findProfessionalByUsername(username: string) {
-    const db = this.db;
-
-    const result = await db
-      .select({
-        id: professionals.id,
-        user_id: professionals.user_id,
-        username: professionals.username,
-        bio: professionals.bio,
-        profession_type: professionals.profession_type,
-        hourly_rate: professionals.hourly_rate,
-        stripe_account_id: professionals.stripe_account_id,
-        metadata: professionals.metadata,
-        user: {
-          id: users.id,
-          name: users.name,
-          email: users.email,
-          role: users.role,
-        },
-      })
-      .from(professionals)
-      .innerJoin(users, eq(professionals.user_id, users.id))
-      .where(eq(professionals.username, username))
-      .limit(1);
-
-    return result[0] || null;
   }
 }
 

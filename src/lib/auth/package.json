@@ -1,5 +1,5 @@
 {
-  "name": "@agendei/auth",
+  "name": "@colunavistobr/auth",
   "version": "0.1.0",
   "private": true,
   "main": "./dist/index.js",
@@ -12,7 +12,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@agendei/validation": "workspace:*",
+    "@colunavistobr/validation": "workspace:*",
     "jsonwebtoken": "^9.0.2",
     "bcryptjs": "^2.4.3"
   },

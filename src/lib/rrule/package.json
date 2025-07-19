@@ -1,7 +1,7 @@
 {
-  "name": "@agendei/rrule",
+  "name": "@colunavistobr/rrule",
   "version": "0.1.0",
-  "description": "RRule utilities for Agendei appointment scheduling",
+  "description": "RRule utilities for actions scheduling",
   "main": "src/index.ts",
   "scripts": {
     "build": "tsc",
