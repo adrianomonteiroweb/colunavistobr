@@ -2,36 +2,37 @@
 import jwt from "jsonwebtoken";
 import { jwtPayloadSchema } from "@agendei/validation";
 var JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key";
-var JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "your-super-secret-refresh-key";
+var JWT_REFRESH_SECRET =
+  process.env.JWT_REFRESH_SECRET || "your-super-secret-refresh-key";
 var JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "15m";
 var JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || "7d";
 var JwtService = class {
   static generateAccessToken(payload) {
     return jwt.sign(payload, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN
+      expiresIn: JWT_EXPIRES_IN,
     });
   }
   static generateRefreshToken(payload) {
     return jwt.sign(payload, JWT_REFRESH_SECRET, {
-      expiresIn: JWT_REFRESH_EXPIRES_IN
+      expiresIn: JWT_REFRESH_EXPIRES_IN,
     });
   }
   static generateTokenPair(payload) {
     const accessToken = this.generateAccessToken(payload);
     const refreshToken = this.generateRefreshToken({
       userId: payload.userId,
-      email: payload.email
+      email: payload.email,
     });
     return {
       accessToken,
-      refreshToken
+      refreshToken,
     };
   }
   static verifyAccessToken(token) {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
       return jwtPayloadSchema.parse(decoded);
-    } catch (error) {
+    } catch {
       throw new Error("Token inv\xE1lido ou expirado");
     }
   }
@@ -39,7 +40,7 @@ var JwtService = class {
     try {
       const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
       return decoded;
-    } catch (error) {
+    } catch {
       throw new Error("Refresh token inv\xE1lido ou expirado");
     }
   }
@@ -47,7 +48,7 @@ var JwtService = class {
     try {
       this.verifyRefreshToken(refreshToken);
       return this.generateAccessToken(userData);
-    } catch (error) {
+    } catch {
       throw new Error("N\xE3o foi poss\xEDvel renovar o token");
     }
   }
@@ -82,7 +83,7 @@ var PasswordService = class {
     try {
       const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
       return bcrypt.hash(password, salt);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao criptografar senha");
     }
   }
@@ -92,7 +93,7 @@ var PasswordService = class {
   static async comparePassword(password, hash) {
     try {
       return bcrypt.compare(password, hash);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao verificar senha");
     }
   }
@@ -133,7 +134,7 @@ var PasswordService = class {
     return {
       isValid: errors.length === 0,
       errors,
-      score: Math.min(score, 5)
+      score: Math.min(score, 5),
       // Máximo 5
     };
   }
@@ -154,11 +155,11 @@ var PasswordService = class {
     for (let i = password.length; i < length; i++) {
       password += allChars[Math.floor(Math.random() * allChars.length)];
     }
-    return password.split("").sort(() => Math.random() - 0.5).join("");
+    return password
+      .split("")
+      .sort(() => Math.random() - 0.5)
+      .join("");
   }
 };
 PasswordService.SALT_ROUNDS = 12;
-export {
-  JwtService,
-  PasswordService
-};
+export { JwtService, PasswordService };

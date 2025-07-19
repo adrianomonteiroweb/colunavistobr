@@ -1,9 +1,6 @@
 import {
-  create_common_rrules,
-  generate_occurrences_in_range,
   rrule_to_human_text,
   is_occurrence_date,
-  get_next_occurrence,
   RecurrenceConfig,
   create_rrule_from_config,
 } from "./index";
@@ -12,9 +9,6 @@ import { startOfMonth } from "date-fns/startOfMonth";
 import { endOfMonth } from "date-fns/endOfMonth";
 import { eachDayOfInterval } from "date-fns/eachDayOfInterval";
 import { isSameDay } from "date-fns/isSameDay";
-import { addMonths } from "date-fns/addMonths";
-import { subMonths } from "date-fns/subMonths";
-import { ptBR } from "date-fns/locale/pt-BR";
 
 export interface CalendarAvailability {
   id: number;

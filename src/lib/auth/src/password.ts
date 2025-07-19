@@ -10,7 +10,7 @@ export class PasswordService {
     try {
       const salt = await bcrypt.genSalt(this.SALT_ROUNDS);
       return bcrypt.hash(password, salt);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao criptografar senha");
     }
   }
@@ -24,7 +24,7 @@ export class PasswordService {
   ): Promise<boolean> {
     try {
       return bcrypt.compare(password, hash);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao verificar senha");
     }
   }

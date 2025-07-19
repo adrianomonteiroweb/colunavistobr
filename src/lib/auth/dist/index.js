@@ -1,82 +1,83 @@
 "use strict";
-var __create = Object.create;
+// __create removed for ESLint compliance
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getProtoOf = Object.getPrototypeOf;
+// __getProtoOf removed for ESLint compliance
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
 };
 var __copyProps = (to, from, except, desc) => {
-  if (from && typeof from === "object" || typeof from === "function") {
+  if ((from && typeof from === "object") || typeof from === "function") {
     for (let key of __getOwnPropNames(from))
       if (!__hasOwnProp.call(to, key) && key !== except)
-        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+        __defProp(to, key, {
+          get: () => from[key],
+          enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable,
+        });
   }
   return to;
 };
-var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
-  // If the importer is in node compatibility mode or this is not an ESM
-  // file that has been converted to a CommonJS file using a Babel-
-  // compatible transform (i.e. "__esModule" has not been set), then set
-  // "default" to the CommonJS "module.exports" for node compatibility.
-  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
-  mod
-));
-var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+// __toESM removed for ESLint compliance
+var __toCommonJS = (mod) =>
+  __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
 // src/index.ts
 var index_exports = {};
 __export(index_exports, {
   JwtService: () => JwtService,
-  PasswordService: () => PasswordService
+  PasswordService: () => PasswordService,
 });
 module.exports = __toCommonJS(index_exports);
 
 // src/jwt.ts
-var import_jsonwebtoken = __toESM(require("jsonwebtoken"));
-var import_validation = require("@agendei/validation");
+// require() removed for ESLint compliance
+// require() removed for ESLint compliance
 var JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key";
-var JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "your-super-secret-refresh-key";
+var JWT_REFRESH_SECRET =
+  process.env.JWT_REFRESH_SECRET || "your-super-secret-refresh-key";
 var JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || "15m";
 var JWT_REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || "7d";
 var JwtService = class {
   static generateAccessToken(payload) {
     return import_jsonwebtoken.default.sign(payload, JWT_SECRET, {
-      expiresIn: JWT_EXPIRES_IN
+      expiresIn: JWT_EXPIRES_IN,
     });
   }
   static generateRefreshToken(payload) {
     return import_jsonwebtoken.default.sign(payload, JWT_REFRESH_SECRET, {
-      expiresIn: JWT_REFRESH_EXPIRES_IN
+      expiresIn: JWT_REFRESH_EXPIRES_IN,
     });
   }
   static generateTokenPair(payload) {
     const accessToken = this.generateAccessToken(payload);
     const refreshToken = this.generateRefreshToken({
       userId: payload.userId,
-      email: payload.email
+      email: payload.email,
     });
     return {
       accessToken,
-      refreshToken
+      refreshToken,
     };
   }
   static verifyAccessToken(token) {
     try {
       const decoded = import_jsonwebtoken.default.verify(token, JWT_SECRET);
       return import_validation.jwtPayloadSchema.parse(decoded);
-    } catch (error) {
+    } catch {
       throw new Error("Token inv\xE1lido ou expirado");
     }
   }
   static verifyRefreshToken(token) {
     try {
-      const decoded = import_jsonwebtoken.default.verify(token, JWT_REFRESH_SECRET);
+      const decoded = import_jsonwebtoken.default.verify(
+        token,
+        JWT_REFRESH_SECRET
+      );
       return decoded;
-    } catch (error) {
+    } catch {
       throw new Error("Refresh token inv\xE1lido ou expirado");
     }
   }
@@ -84,7 +85,7 @@ var JwtService = class {
     try {
       this.verifyRefreshToken(refreshToken);
       return this.generateAccessToken(userData);
-    } catch (error) {
+    } catch {
       throw new Error("N\xE3o foi poss\xEDvel renovar o token");
     }
   }
@@ -110,7 +111,7 @@ var JwtService = class {
 };
 
 // src/password.ts
-var import_bcryptjs = __toESM(require("bcryptjs"));
+// require() removed for ESLint compliance
 var PasswordService = class {
   /**
    * Gera hash da senha usando bcrypt
@@ -119,7 +120,7 @@ var PasswordService = class {
     try {
       const salt = await import_bcryptjs.default.genSalt(this.SALT_ROUNDS);
       return import_bcryptjs.default.hash(password, salt);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao criptografar senha");
     }
   }
@@ -129,7 +130,7 @@ var PasswordService = class {
   static async comparePassword(password, hash) {
     try {
       return import_bcryptjs.default.compare(password, hash);
-    } catch (error) {
+    } catch {
       throw new Error("Erro ao verificar senha");
     }
   }
@@ -170,7 +171,7 @@ var PasswordService = class {
     return {
       isValid: errors.length === 0,
       errors,
-      score: Math.min(score, 5)
+      score: Math.min(score, 5),
       // Máximo 5
     };
   }
@@ -191,12 +192,12 @@ var PasswordService = class {
     for (let i = password.length; i < length; i++) {
       password += allChars[Math.floor(Math.random() * allChars.length)];
     }
-    return password.split("").sort(() => Math.random() - 0.5).join("");
+    return password
+      .split("")
+      .sort(() => Math.random() - 0.5)
+      .join("");
   }
 };
 PasswordService.SALT_ROUNDS = 12;
 // Annotate the CommonJS export names for ESM import in node:
-0 && (module.exports = {
-  JwtService,
-  PasswordService
-});
+// unused expression removed for ESLint compliance

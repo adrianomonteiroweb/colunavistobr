@@ -1,5 +1,5 @@
 import { RRule, Frequency } from "rrule";
-import { format, parseISO, addDays, startOfDay, endOfDay } from "date-fns";
+import { startOfDay, endOfDay } from "date-fns";
 
 export * from "rrule";
 export * from "./types";
@@ -108,7 +108,7 @@ export const generate_occurrences_in_range = (
       true
     );
 
-    return occurrences.map((occurrence_date, index) => {
+    return occurrences.map((occurrence_date) => {
       const start_at = new Date(occurrence_date);
       start_at.setHours(start_time.getHours());
       start_at.setMinutes(start_time.getMinutes());

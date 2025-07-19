@@ -34,12 +34,8 @@ export const DialogTitle = ({
   className?: string;
 }) => <h2 className={cn("text-lg font-bold", className)}>{children}</h2>;
 
-export const DialogTrigger = ({
-  children,
-  asChild,
-}: {
-  children: React.ReactNode;
-  asChild?: boolean;
-}) => <>{children}</>;
+export const DialogTrigger = ({ children }: { children: React.ReactNode }) => (
+  <>{children}</>
+);
 
 export default Dialog;

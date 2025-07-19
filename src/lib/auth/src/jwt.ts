@@ -44,7 +44,7 @@ export class JwtService {
     try {
       const decoded = jwt.verify(token, JWT_SECRET);
       return jwtPayloadSchema.parse(decoded);
-    } catch (error) {
+    } catch {
       throw new Error("Token inválido ou expirado");
     }
   }
@@ -55,7 +55,7 @@ export class JwtService {
     try {
       const decoded = jwt.verify(token, JWT_REFRESH_SECRET);
       return decoded as Pick<JwtPayload, "userId" | "email">;
-    } catch (error) {
+    } catch {
       throw new Error("Refresh token inválido ou expirado");
     }
   }
@@ -67,7 +67,7 @@ export class JwtService {
     try {
       this.verifyRefreshToken(refreshToken);
       return this.generateAccessToken(userData);
-    } catch (error) {
+    } catch {
       throw new Error("Não foi possível renovar o token");
     }
   }

@@ -13,7 +13,6 @@ import {
   availability_exceptions,
   availability_slots,
   payments,
-  session_usage,
 } from "./schema";
 
 // User types
