@@ -21,7 +21,7 @@ export class BaseRepository {
   static query(db = this.db): RelationalQueryBuilder<any, any, any> {
     return (db as any).query[getTableName(this.model) + "_table"];
   }
-  static async findById(id: any, options: any = {}, { tx }: any = {}) {
+  static async findById(id: any, _options: any = {}, { tx }: any = {}) {
     const db = tx || this.db;
     const result = await db
       .select()
@@ -30,14 +30,14 @@ export class BaseRepository {
       .limit(1);
     return result[0] || null;
   }
-  static async findAll(where?: any, options: any = {}, { tx }: any = {}) {
+  static async findAll(where?: any, _options: any = {}, { tx }: any = {}) {
     const db = tx || this.db;
     return await db.select().from(this.model).where(where);
   }
 
-  static async findOne(where: any, options: any = {}, { tx }: any = {}) {
+  static async findOne(where: any, _options: any = {}, { tx }: any = {}) {
     return await this.query(tx).findFirst({
-      ...options,
+      // ...options, // removed unused spread
       where,
     });
   }

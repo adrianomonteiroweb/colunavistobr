@@ -1,5 +1,5 @@
 import jwt, { SignOptions } from "jsonwebtoken";
-import { JwtPayload, jwtPayloadSchema } from "@agendei/validation";
+import { JwtPayload, jwtPayloadSchema } from "@/lib/validation/src/auth";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key";
 const JWT_REFRESH_SECRET =
