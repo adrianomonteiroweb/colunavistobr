@@ -1,6 +1,7 @@
-import { db } from "@/lib/db/src/db";
-import { heroContent } from "@/lib/db/src/schema";
 import { eq } from "drizzle-orm";
+
+import BaseRepository from "./BaseRepository";
+import { heroContent } from "../schema";
 
 export type HeroContent = {
   id: number;
@@ -22,19 +23,30 @@ export type HeroContent = {
   updated_at: Date;
 };
 
-const TABLE = heroContent;
+export class HeroContentRepository extends BaseRepository {
+  static override model = heroContent;
 
-export const HeroContentRepository = {
-  async getHeroContent(): Promise<HeroContent | null> {
-    const result = await db.select().from(TABLE).limit(1);
+  static async getHeroContent({
+    tx,
+  }: { tx?: any } = {}): Promise<HeroContent | null> {
+    const db = tx || this.db;
+    const result = await db.select().from(this.model).limit(1);
     return result[0] || null;
-  },
-  async updateHeroContent(
+  }
+
+  static async updateHeroContent(
     id: number,
-    data: Partial<HeroContent>
+    data: Partial<HeroContent>,
+    { tx }: { tx?: any } = {}
   ): Promise<HeroContent | null> {
-    await db.update(TABLE).set(data).where(eq(TABLE.id, id));
-    const updated = await db.select().from(TABLE).where(eq(TABLE.id, id));
+    const db = tx || this.db;
+    await db.update(this.model).set(data).where(eq(this.model.id, id));
+    const updated = await db
+      .select()
+      .from(this.model)
+      .where(eq(this.model.id, id));
     return updated[0] || null;
-  },
-};
+  }
+}
+
+export default HeroContentRepository;
