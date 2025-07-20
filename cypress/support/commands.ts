@@ -1,3 +1,4 @@
+import "cypress-file-upload";
 import USERS from "../fixtures/users";
 
 Cypress.Commands.add("login", (role: keyof typeof USERS) => {

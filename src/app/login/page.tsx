@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/components/app/auth-provider";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const { login, isLoading } = useAuth();
@@ -15,9 +15,9 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    const ok = await login(email, password);
+    const ok = await login(username, password);
     if (ok) {
-      router.push("/dashboard");
+      router.push("/admin");
     } else {
       setError("Credenciais inválidas");
     }
@@ -31,11 +31,11 @@ export default function LoginPage() {
       >
         <h1 className="text-2xl font-bold mb-4">Login</h1>
         <Input
-          name="email"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          name="username"
+          type="text"
+          placeholder="Usuário"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
         />
         <Input

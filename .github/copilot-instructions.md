@@ -42,6 +42,7 @@
 
 ### Sintaxe e Convenções
 
+- Ao invés de rest api no next.js, use server actions.
 - Sempre escreva código em inglês
 - variáveis em snake_case, constantes em UPPER_SNAKE_CASE.
 - unfções e métodos em camelCase.

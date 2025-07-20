@@ -1,11 +1,3 @@
-import { InferSelectModel, InferInsertModel } from "drizzle-orm";
-import { users } from "./schema";
-
-// User types
-export type User = InferSelectModel<typeof users>;
-export type NewUser = InferInsertModel<typeof users>;
-export type UserUpdate = Partial<NewUser>;
-
 // Role types
 export type UserRole = "admin" | "professional" | "customer";
 

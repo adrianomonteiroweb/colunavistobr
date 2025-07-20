@@ -3,11 +3,11 @@
 import type React from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { createSession, destroySession, getSession } from "@/actions/auth";
+import { loginAdmin } from "@/actions/loginAdmin";
 
 interface AuthContextType {
   user: any | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (username: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   isLoading: boolean;
 }
@@ -18,45 +18,41 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Restaura usuário do localStorage ao carregar
   useEffect(() => {
-    const loadSession = async () => {
-      setIsLoading(true);
-      const session: any = await getSession();
-
-      if (session?.payload) {
-        setUser(session.payload as any);
-      } else {
-        setUser(null);
-      }
-      setIsLoading(false);
-    };
-
-    loadSession();
+    const stored =
+      typeof window !== "undefined" ? localStorage.getItem("admin_user") : null;
+    if (stored) {
+      setUser(JSON.parse(stored));
+    } else {
+      setUser(null);
+    }
+    setIsLoading(false);
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (
+    username: string,
+    password: string
+  ): Promise<boolean> => {
     setIsLoading(true);
-    const res = await createSession(email, password);
-
-    if (res.status === 200) {
-      const session: any = await getSession();
-
-      if (session?.payload) {
-        setUser(session.payload as any);
-        setIsLoading(false);
-        return true;
+    const user = await loginAdmin(username, password);
+    if (user) {
+      setUser(user);
+      if (typeof window !== "undefined") {
+        localStorage.setItem("admin_user", JSON.stringify(user));
       }
+      setIsLoading(false);
+      return true;
     }
-
     setIsLoading(false);
     return false;
   };
 
   const logout = async () => {
-    setIsLoading(true);
-    await destroySession();
     setUser(null);
-    setIsLoading(false);
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("admin_user");
+    }
   };
 
   return (

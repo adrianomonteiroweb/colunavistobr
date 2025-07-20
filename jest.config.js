@@ -1,7 +1,9 @@
 module.exports = {
-  testEnvironment: "jsdom",
+  // Usa jsdom para testes frontend, mas node para backend
+  testEnvironment: process.env.TEST_ENV === "node" ? "node" : "jsdom",
   transform: {
-    "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+    "^.+\\.(ts|tsx)$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
   },
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
@@ -12,4 +14,6 @@ module.exports = {
   },
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   testPathIgnorePatterns: ["/node_modules/", "/.next/"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  testMatch: ["<rootDir>/**/*.test.(ts|tsx|js)"],
 };

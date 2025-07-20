@@ -2,12 +2,12 @@
   "name": "@colunavistobr/validation",
   "version": "0.1.0",
   "private": true,
-  "main": "./dist/index.js",
+  "main": "./dist/index.mjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "build": "tsup src/index.ts --format esm --dts-resolve",
+    "dev": "tsup src/index.ts --format esm --dts-resolve --watch",
     "clean": "rm -rf dist",
     "type-check": "tsc --noEmit"
   },
@@ -22,18 +22,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": "./dist/index.mjs"
     },
     "./user": {
       "types": "./dist/user.d.ts",
-      "import": "./dist/user.mjs",
-      "require": "./dist/user.js"
+      "import": "./dist/user.mjs"
     },
     "./appointment": {
       "types": "./dist/appointment.d.ts",
-      "import": "./dist/appointment.mjs",
-      "require": "./dist/appointment.js"
+      "import": "./dist/appointment.mjs"
     }
   }
 }

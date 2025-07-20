@@ -1,13 +1,11 @@
 import { pgSchema, varchar, timestamp, serial } from "drizzle-orm/pg-core";
 
-export const schema = pgSchema("agendei");
+export const schema = pgSchema("colunavisto");
 
-// Tabela principal de usuários
-export const users = schema.table("users", {
+// Tabela de administradores
+export const admin = schema.table("admin", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
+  username: varchar("username", { length: 255 }).notNull(),
   password_hash: varchar("password_hash", { length: 255 }).notNull(),
-  role: varchar("role", { length: 50 }).notNull(), // 'user' | 'admin'
   created_at: timestamp("created_at").defaultNow(),
 });
