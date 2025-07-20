@@ -2,6 +2,10 @@
 
 # dependencies
 /node_modules
+src/lib/auth/node_modules
+src/lib/db/node_modules
+src/lib/rrule/node_modules
+src/lib/validation/node_modules
 /.pnp
 .pnp.*
 .yarn/*
