@@ -1,15 +1,37 @@
 "use client";
 
-import { Heart, Copy, Check, Instagram, Facebook, Youtube } from "lucide-react";
+import { Copy, Check, Instagram, Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { getBlobMetadata } from "@/lib/blob";
+import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import React from "react";
 
-const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
+type HeroContent = {
+  id: number;
+  title: string;
+  subtitle: string;
+  text: string;
+  image_url?: string;
+  project_info?: string;
+  founder_name?: string;
+  founder_bio?: string;
+  founder_image_url?: string;
+  social_instagram?: string;
+  social_facebook?: string;
+  social_linkedin?: string;
+  social_youtube?: string;
+  payment_pix?: string;
+  payment_paypal?: string;
+  payment_info?: string;
+  payment_qr_image_url?: string;
+  updated_at?: string;
+};
+
+const HeroClient: React.FC<{ heroContent: HeroContent }> = ({
+  heroContent,
+}) => {
   const [copied, setCopied] = React.useState(false);
 
   const copyPixKey = async () => {
@@ -43,49 +65,14 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
     },
   ];
 
-  // Garantir que as URLs do blob são válidas
-  const [projectImage, setProjectImage] = useState<string>("");
-  const [founderImage, setFounderImage] = useState<string>("");
-  const [paymentQrImage, setPaymentQrImage] = useState<string>("");
+  // Exibir imagens diretamente, fallback para placeholder via onError
+  const PROJECT_PLACEHOLDER = "/placeholder.svg?height=300&width=300";
+  const FOUNDER_PLACEHOLDER = "/placeholder.svg?height=200&width=200";
+  const PAYMENT_QR_PLACEHOLDER = "/placeholder.svg?height=150&width=150";
 
-  useEffect(() => {
-    let isMounted = true;
-    const checkImages = async () => {
-      if (heroContent.image_url) {
-        const meta = await getBlobMetadata(heroContent.image_url);
-        if (isMounted && meta) setProjectImage(heroContent.image_url);
-        else if (isMounted)
-          setProjectImage("/placeholder.svg?height=300&width=300");
-      } else {
-        setProjectImage("/placeholder.svg?height=300&width=300");
-      }
-      if (heroContent.founder_image_url) {
-        const meta = await getBlobMetadata(heroContent.founder_image_url);
-        if (isMounted && meta) setFounderImage(heroContent.founder_image_url);
-        else if (isMounted)
-          setFounderImage("/placeholder.svg?height=200&width=200");
-      } else {
-        setFounderImage("/placeholder.svg?height=200&width=200");
-      }
-      if (heroContent.payment_qr_image_url) {
-        const meta = await getBlobMetadata(heroContent.payment_qr_image_url);
-        if (isMounted && meta)
-          setPaymentQrImage(heroContent.payment_qr_image_url);
-        else if (isMounted)
-          setPaymentQrImage("/placeholder.svg?height=150&width=150");
-      } else {
-        setPaymentQrImage("/placeholder.svg?height=150&width=150");
-      }
-    };
-    checkImages();
-    return () => {
-      isMounted = false;
-    };
-  }, [
-    heroContent.image_url,
-    heroContent.founder_image_url,
-    heroContent.payment_qr_image_url,
-  ]);
+  const [projectImageError, setProjectImageError] = useState(false);
+  const [founderImageError, setFounderImageError] = useState(false);
+  const [paymentQrImageError, setPaymentQrImageError] = useState(false);
 
   return (
     <section className="relative bg-white py-8 md:py-12 px-4">
@@ -95,15 +82,19 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
           {/* Bloco 1: Imagem do Projeto */}
           <Card className="border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col items-center text-center">
             <div className="relative w-32 h-32 md:w-48 md:h-48 mx-auto mb-3">
-              {projectImage && (
-                <Image
-                  src={projectImage}
-                  alt={heroContent.title || "Projeto"}
-                  width={300}
-                  height={300}
-                  className="rounded-xl object-cover w-full h-full border-2 border-green-100"
-                />
-              )}
+              <Image
+                src={
+                  !projectImageError && heroContent.image_url
+                    ? heroContent.image_url
+                    : PROJECT_PLACEHOLDER
+                }
+                alt={heroContent.title || "Projeto"}
+                width={300}
+                height={300}
+                className="rounded-xl object-cover w-full h-full border-2 border-green-100"
+                onError={() => setProjectImageError(true)}
+                priority
+              />
             </div>
             <h2 className="text-lg md:text-2xl font-bold text-gray-900 mb-1">
               {heroContent.title}
@@ -121,15 +112,19 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
           {/* Bloco 2: Sobre a Fundadora */}
           <Card className="border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col items-center text-center">
             <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-3">
-              {founderImage && (
-                <Image
-                  src={founderImage}
-                  alt={heroContent.founder_name || "Fundadora"}
-                  width={200}
-                  height={200}
-                  className="rounded-full object-cover w-full h-full border-2 border-green-100"
-                />
-              )}
+              <Image
+                src={
+                  !founderImageError && heroContent.founder_image_url
+                    ? heroContent.founder_image_url
+                    : FOUNDER_PLACEHOLDER
+                }
+                alt={heroContent.founder_name || "Fundadora"}
+                width={200}
+                height={200}
+                className="rounded-full object-cover w-full h-full border-2 border-green-100"
+                onError={() => setFounderImageError(true)}
+                priority
+              />
             </div>
             <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1">
               {heroContent.founder_name}
@@ -157,15 +152,19 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
                 {heroContent.payment_info}
               </p>
               <div className="bg-white rounded-lg p-4 mb-4 shadow-sm">
-                {paymentQrImage && (
-                  <Image
-                    src={paymentQrImage}
-                    alt="QR Code PIX"
-                    width={150}
-                    height={150}
-                    className="mx-auto"
-                  />
-                )}
+                <Image
+                  src={
+                    !paymentQrImageError && heroContent.payment_qr_image_url
+                      ? heroContent.payment_qr_image_url
+                      : PAYMENT_QR_PLACEHOLDER
+                  }
+                  alt="QR Code PIX"
+                  width={150}
+                  height={150}
+                  className="mx-auto"
+                  onError={() => setPaymentQrImageError(true)}
+                  priority
+                />
                 <p className="text-gray-600 text-xs mt-2">
                   Escaneie o QR Code com seu app bancário
                 </p>

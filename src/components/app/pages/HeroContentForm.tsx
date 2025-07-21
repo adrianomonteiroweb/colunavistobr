@@ -20,14 +20,39 @@ interface Props {
 }
 
 export const HeroContentForm = ({ id, initialData, section }: Props) => {
+  const paymentQrFileInputRef = useRef<HTMLInputElement | null>(null);
+  const handlePaymentQrUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setIsUploading(true);
+    try {
+      const path = `hero/payment_qr/${id}_${file.name}`;
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("path", path);
+      formData.append("id", String(id));
+      formData.append("type", "payment_qr_image_url");
+      const { url } = await uploadBlobAction(formData);
+      setPaymentQrImageUrl(url);
+    } finally {
+      setIsUploading(false);
+    }
+  };
   const [imageUrl, setImageUrl] = useState(initialData.image_url || "");
   const [founderImageUrl, setFounderImageUrl] = useState(
     initialData.founder_image_url || ""
   );
   const [isUploading, setIsUploading] = useState(false);
   const [paymentQrImageUrl, setPaymentQrImageUrl] = useState(
-    initialData.payment_qr_image_url || ""
+    typeof initialData.payment_qr_image_url === "string" &&
+      initialData.payment_qr_image_url.length > 0
+      ? initialData.payment_qr_image_url
+      : ""
   );
+  const qrImageToShow =
+    paymentQrImageUrl || initialData.payment_qr_image_url || "";
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const founderFileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -219,28 +244,13 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
               <Input
                 type="file"
                 accept="image/*"
-                onChange={async (e) => {
-                  const file = e.target.files?.[0];
-                  if (!file) return;
-                  setIsUploading(true);
-                  try {
-                    const path = `hero/payment_qr/${id}_${file.name}`;
-                    const formData = new FormData();
-                    formData.append("file", file);
-                    formData.append("path", path);
-                    formData.append("id", String(id));
-                    formData.append("type", "payment_qr_image_url");
-                    const { url } = await uploadBlobAction(formData);
-                    setPaymentQrImageUrl(url);
-                  } finally {
-                    setIsUploading(false);
-                  }
-                }}
+                ref={paymentQrFileInputRef}
+                onChange={handlePaymentQrUpload}
                 disabled={isUploading}
               />
-              {paymentQrImageUrl && (
+              {qrImageToShow && (
                 <Image
-                  src={paymentQrImageUrl}
+                  src={qrImageToShow}
                   alt="QR Code PIX"
                   width={48}
                   height={48}
@@ -253,7 +263,7 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
             <input
               type="hidden"
               name="payment_qr_image_url"
-              value={paymentQrImageUrl || ""}
+              value={paymentQrImageUrl}
             />
           </div>
         </>
