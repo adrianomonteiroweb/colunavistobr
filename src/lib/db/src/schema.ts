@@ -32,5 +32,6 @@ export const heroContent = schema.table("hero_content", {
   payment_pix: varchar("payment_pix", { length: 255 }),
   payment_paypal: varchar("payment_paypal", { length: 255 }),
   payment_info: varchar("payment_info", { length: 1024 }),
+  payment_qr_image_url: varchar("payment_qr_image_url", { length: 255 }),
   updated_at: timestamp("updated_at").defaultNow(),
 });

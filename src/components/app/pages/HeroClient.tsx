@@ -2,6 +2,8 @@
 
 import { Heart, Copy, Check, Instagram, Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import { getBlobMetadata } from "@/lib/blob";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -41,27 +43,72 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
     },
   ];
 
+  // Garantir que as URLs do blob são válidas
+  const [projectImage, setProjectImage] = useState<string>("");
+  const [founderImage, setFounderImage] = useState<string>("");
+  const [paymentQrImage, setPaymentQrImage] = useState<string>("");
+
+  useEffect(() => {
+    let isMounted = true;
+    const checkImages = async () => {
+      if (heroContent.image_url) {
+        const meta = await getBlobMetadata(heroContent.image_url);
+        if (isMounted && meta) setProjectImage(heroContent.image_url);
+        else if (isMounted)
+          setProjectImage("/placeholder.svg?height=300&width=300");
+      } else {
+        setProjectImage("/placeholder.svg?height=300&width=300");
+      }
+      if (heroContent.founder_image_url) {
+        const meta = await getBlobMetadata(heroContent.founder_image_url);
+        if (isMounted && meta) setFounderImage(heroContent.founder_image_url);
+        else if (isMounted)
+          setFounderImage("/placeholder.svg?height=200&width=200");
+      } else {
+        setFounderImage("/placeholder.svg?height=200&width=200");
+      }
+      if (heroContent.payment_qr_image_url) {
+        const meta = await getBlobMetadata(heroContent.payment_qr_image_url);
+        if (isMounted && meta)
+          setPaymentQrImage(heroContent.payment_qr_image_url);
+        else if (isMounted)
+          setPaymentQrImage("/placeholder.svg?height=150&width=150");
+      } else {
+        setPaymentQrImage("/placeholder.svg?height=150&width=150");
+      }
+    };
+    checkImages();
+    return () => {
+      isMounted = false;
+    };
+  }, [
+    heroContent.image_url,
+    heroContent.founder_image_url,
+    heroContent.payment_qr_image_url,
+  ]);
+
   return (
     <section className="relative bg-white py-8 md:py-12 px-4">
       <div className="container mx-auto max-w-7xl">
         {/* Grid Principal 2x2 para a Primeira Sessão */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-          {/* Bloco 1: Sobre o Projeto */}
-          <Card className="border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col justify-between">
-            <div>
-              <div className="inline-flex items-center bg-white rounded-full px-3 py-1 mb-3">
-                <Heart className="h-3 w-3 text-gray-600 mr-1" />
-                <span className="text-xs text-gray-700 font-medium">
-                  Projeto Social
-                </span>
-              </div>
-              <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 leading-tight">
-                {heroContent.title}
-              </h2>
-              <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                {heroContent.project_info}
-              </p>
+          {/* Bloco 1: Imagem do Projeto */}
+          <Card className="border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col items-center text-center">
+            <div className="relative w-32 h-32 md:w-48 md:h-48 mx-auto mb-3">
+              {projectImage && (
+                <Image
+                  src={projectImage}
+                  alt={heroContent.title || "Projeto"}
+                  width={300}
+                  height={300}
+                  className="rounded-xl object-cover w-full h-full border-2 border-green-100"
+                />
+              )}
             </div>
+            <h2 className="text-lg md:text-2xl font-bold text-gray-900 mb-1">
+              {heroContent.title}
+            </h2>
+            <p className="text-sm text-gray-600 mb-2">{heroContent.subtitle}</p>
             <Button
               asChild
               size="sm"
@@ -74,16 +121,15 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
           {/* Bloco 2: Sobre a Fundadora */}
           <Card className="border-0 shadow-sm bg-gray-50 p-4 md:p-6 flex flex-col items-center text-center">
             <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto mb-3">
-              <Image
-                src={
-                  heroContent.founder_image_url ||
-                  "/placeholder.svg?height=200&width=200"
-                }
-                alt={heroContent.founder_name || "Fundadora"}
-                width={200}
-                height={200}
-                className="rounded-full object-cover w-full h-full border-2 border-green-100"
-              />
+              {founderImage && (
+                <Image
+                  src={founderImage}
+                  alt={heroContent.founder_name || "Fundadora"}
+                  width={200}
+                  height={200}
+                  className="rounded-full object-cover w-full h-full border-2 border-green-100"
+                />
+              )}
             </div>
             <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-1">
               {heroContent.founder_name}
@@ -111,16 +157,15 @@ const HeroClient: React.FC<{ heroContent: any }> = ({ heroContent }) => {
                 {heroContent.payment_info}
               </p>
               <div className="bg-white rounded-lg p-4 mb-4 shadow-sm">
-                <Image
-                  src={
-                    heroContent.image_url ||
-                    "/placeholder.svg?height=150&width=150"
-                  }
-                  alt="QR Code PIX"
-                  width={150}
-                  height={150}
-                  className="mx-auto"
-                />
+                {paymentQrImage && (
+                  <Image
+                    src={paymentQrImage}
+                    alt="QR Code PIX"
+                    width={150}
+                    height={150}
+                    className="mx-auto"
+                  />
+                )}
                 <p className="text-gray-600 text-xs mt-2">
                   Escaneie o QR Code com seu app bancário
                 </p>

@@ -14,7 +14,7 @@
   "dependencies": {
     "@colunavistobr/rrule": "workspace:*",
     "dotenv": "^16.5.0",
-    "drizzle-orm": "^0.43.1",
+    "drizzle-orm": "0.44.3",
     "pg": "^8.15.6",
     "uuid": "^10.0.0"
   },

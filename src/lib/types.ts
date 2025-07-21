@@ -15,6 +15,7 @@ export type HeroContent = {
   payment_pix?: string;
   payment_paypal?: string;
   payment_info?: string;
+  payment_qr_image_url?: string;
   updated_at: Date;
 };
 

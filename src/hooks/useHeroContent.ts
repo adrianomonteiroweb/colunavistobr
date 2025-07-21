@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
-import {
-  fetchHeroContent,
-  saveHeroContent,
-} from "@/actions/heroContentActions";
+import { fetchHeroContent } from "@/actions/heroContentActions";
+import { saveHeroContent } from "@/actions/saveHeroContentAction";
 import type { HeroContent } from "@/lib/db/src/repositories/HeroContentRepository";
 
 export const useHeroContent = () => {

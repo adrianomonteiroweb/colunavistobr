@@ -40,6 +40,7 @@ if (isProduction) {
         payment_info VARCHAR(1024),
         updated_at TIMESTAMP DEFAULT now()
       )`,
+      `ALTER TABLE colunavisto.hero_content ADD COLUMN IF NOT EXISTS payment_qr_image_url VARCHAR(255);`,
     ];
     try {
       for (const sql of sqlCommands) {

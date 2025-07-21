@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-// Removed direct upload import. Upload will be handled via API route.
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -41,7 +40,6 @@ const BlobUploadTestPage: React.FC = () => {
       setUrl(data.url);
       setProgress(100);
     } catch (err: any) {
-      // Loga erro no console para debug
       // eslint-disable-next-line no-console
       console.error("Upload error:", err);
       setError(err?.message || "Upload failed");

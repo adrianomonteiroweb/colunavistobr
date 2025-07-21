@@ -9,18 +9,19 @@ export type HeroContent = {
   subtitle: string;
   text: string;
   image_url: string;
-  project_info?: string;
-  founder_name?: string;
-  founder_bio?: string;
-  founder_image_url?: string;
-  social_instagram?: string;
-  social_facebook?: string;
-  social_linkedin?: string;
-  social_youtube?: string;
-  payment_pix?: string;
-  payment_paypal?: string;
-  payment_info?: string;
-  updated_at: Date;
+  project_info?: string | null;
+  founder_name?: string | null;
+  founder_bio?: string | null;
+  founder_image_url?: string | null;
+  social_instagram?: string | null;
+  social_facebook?: string | null;
+  social_linkedin?: string | null;
+  social_youtube?: string | null;
+  payment_pix?: string | null;
+  payment_paypal?: string | null;
+  payment_info?: string | null;
+  payment_qr_image_url?: string | null;
+  updated_at?: Date | null;
 };
 
 export class HeroContentRepository extends BaseRepository {
