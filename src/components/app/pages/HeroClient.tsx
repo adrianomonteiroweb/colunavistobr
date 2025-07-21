@@ -100,13 +100,13 @@ const HeroClient: React.FC<{ heroContent: HeroContent }> = ({
               {heroContent.title}
             </h2>
             <p className="text-sm text-gray-600 mb-2">{heroContent.subtitle}</p>
-            <Button
+            {/* <Button
               asChild
               size="sm"
               className="bg-gray-900 hover:bg-gray-800 text-white w-full"
             >
               <Link href="#sobre">Saiba Mais</Link>
-            </Button>
+            </Button> */}
           </Card>
 
           {/* Bloco 2: Sobre a Fundadora */}
@@ -132,14 +132,14 @@ const HeroClient: React.FC<{ heroContent: HeroContent }> = ({
             <p className="text-sm text-gray-600 mb-4">
               {heroContent.founder_bio}
             </p>
-            <Button
+            {/* <Button
               asChild
               size="sm"
               variant="outline"
               className="border-gray-300 text-gray-700 hover:bg-gray-100 w-full bg-transparent"
             >
               <Link href="#biografia">Conheça a Victoria</Link>
-            </Button>
+            </Button> */}
           </Card>
 
           {/* Bloco 3: Chave Pix */}
