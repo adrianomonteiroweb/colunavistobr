@@ -131,20 +131,20 @@ export const PostsAlbumSection = () => {
             className="group overflow-hidden bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 border-0 cursor-pointer transform hover:-translate-y-2"
             onClick={() => openPostModal(post)}
           >
-            <div className="relative h-64 overflow-hidden">
+            <div className="relative h-96 overflow-hidden">
               {post.images.length > 0 ? (
                 <Image
                   src={post.images[0]}
                   alt={post.title}
                   width={400}
-                  height={256}
+                  height={384}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   priority
                 />
               ) : (
                 <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
                   <svg
-                    className="w-16 h-16 text-gray-400"
+                    className="w-20 h-20 text-gray-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -159,29 +159,32 @@ export const PostsAlbumSection = () => {
                 </div>
               )}
               {post.images.length > 1 && (
-                <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
                   +{post.images.length - 1} fotos
                 </div>
               )}
+
+              {/* Overlay com título sobre a imagem */}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4">
+                <h3 className="font-bold text-xl text-white mb-1 group-hover:text-blue-200 transition-colors">
+                  {post.title}
+                </h3>
+                <p className="text-gray-200 text-sm leading-relaxed line-clamp-2">
+                  {post.description}
+                </p>
+              </div>
             </div>
 
-            <div className="p-6">
-              <h3 className="font-bold text-2xl text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">
-                {post.title}
-              </h3>
-              <p className="text-gray-600 text-base leading-relaxed mb-4 line-clamp-3">
-                {post.description}
-              </p>
-
-              <div className="flex items-center justify-between text-sm text-gray-500">
+            <div className="p-3">
+              <div className="flex items-center justify-between text-xs text-gray-500">
                 <div className="flex items-center gap-1">
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-3 h-3" />
                   <span>
                     {new Date(post.created_at).toLocaleDateString("pt-BR")}
                   </span>
                 </div>
                 <div className="flex items-center gap-1">
-                  <Users className="w-4 h-4" />
+                  <Users className="w-3 h-3" />
                   <span>
                     {post.images.length} foto
                     {post.images.length !== 1 ? "s" : ""}
