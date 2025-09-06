@@ -52,7 +52,7 @@ const AdminPage = async () => {
           </div>
 
           <Tabs defaultValue="hero" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsList className="grid w-full grid-cols-2 mb-8">
               <TabsTrigger value="hero" className="text-lg py-3">
                 Conteúdo da Página Principal
               </TabsTrigger>
@@ -60,6 +60,7 @@ const AdminPage = async () => {
                 Gerenciar Posts
               </TabsTrigger>
             </TabsList>
+
             <TabsContent value="posts" className="space-y-8">
               <AdminPostsSection />
             </TabsContent>

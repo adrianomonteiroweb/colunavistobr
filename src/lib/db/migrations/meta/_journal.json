@@ -15,6 +15,13 @@
       "when": 1753148627572,
       "tag": "0001_aberrant_black_panther",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757189120751,
+      "tag": "0002_cool_the_professor",
+      "breakpoints": true
     }
   ]
 }

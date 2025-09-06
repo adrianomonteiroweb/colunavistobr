@@ -2,15 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Heart,
-  Copy,
-  Check,
-  Instagram,
-  Facebook,
-  Youtube,
-  Linkedin,
-} from "lucide-react";
+import { Heart, Copy, Check, Instagram, Facebook, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
