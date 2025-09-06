@@ -3,20 +3,18 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { fetchHeroContent } from "@/actions/heroContentActions";
 import { HeroContentForm } from "@/components/app/pages/HeroContentForm";
 
-import AdminThemePaletteSection from "@/components/app/AdminThemePaletteSection";
-
 const AdminPage = async () => {
   const heroContent = await fetchHeroContent();
 
   return (
     <SessionProtector requireAuth={true} redirectTo="/login">
-      <main className="min-h-screen bg-[var(--background-color)] transition-colors duration-300">
+      <main className="min-h-screen bg-gray-50 transition-colors duration-300">
         <div className="container mx-auto px-4 py-8 max-w-6xl">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-[var(--text-primary)] mb-2">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">
               Administração de Conteúdo
             </h1>
-            <p className="text-[var(--text-secondary)] text-lg mb-6">
+            <p className="text-gray-600 text-lg mb-6">
               Edite as informações, fotos e imagens da página principal
             </p>
 
@@ -50,11 +48,6 @@ const AdminPage = async () => {
                 Visualizar Página Principal
               </a>
             </div>
-          </div>
-
-          {/* Client Component para seleção de paleta */}
-          <div className="mb-8">
-            <AdminThemePaletteSection />
           </div>
 
           <Tabs defaultValue="hero" className="w-full">

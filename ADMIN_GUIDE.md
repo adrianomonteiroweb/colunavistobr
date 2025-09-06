@@ -40,16 +40,6 @@ A página de administração permite que o admin edite completamente o conteúdo
 - **LinkedIn**: Link do perfil no LinkedIn
 - **YouTube**: Link do canal no YouTube
 
-## 🎨 Personalização Visual
-
-### Seleção de Paleta de Cores
-
-O sistema inclui um seletor de paleta de cores que permite personalizar a aparência visual do site:
-
-- Várias opções de combinações de cores pré-definidas
-- Aplicação instantânea das mudanças
-- Cores afetam toda a interface do site
-
 ## 📸 Upload de Imagens
 
 ### Formatos Aceitos
