@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import * as dotenv from "dotenv";
 dotenv.config();
 
 const isProduction = process.env.DB_ENV === "production";
@@ -54,18 +54,6 @@ if (isProduction) {
         await server.db.query(sql);
       }
       console.log("Tabelas criadas com sucesso no Nile!");
-      // Executa o seed-production.ts após as migrations
-      const { execa } = await import("execa");
-      try {
-        const { stdout } = await execa("pnpm", [
-          "tsx",
-          "src/lib/db/scripts/seed-production.ts",
-        ]);
-        console.log("Seed executado com sucesso:\n", stdout);
-      } catch (seedErr) {
-        console.error("Erro ao executar o seed-production.ts:", seedErr);
-        process.exit(1);
-      }
     } catch (err) {
       console.error("Erro ao criar tabelas no Nile:", err);
       process.exit(1);

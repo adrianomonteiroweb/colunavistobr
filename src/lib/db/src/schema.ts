@@ -1,6 +1,24 @@
-import { pgSchema, varchar, timestamp, serial } from "drizzle-orm/pg-core";
+import {
+  pgSchema,
+  varchar,
+  timestamp,
+  serial,
+  integer,
+  jsonb,
+} from "drizzle-orm/pg-core";
 
 export const schema = pgSchema("colunavisto");
+
+// Tabela de configurações (settings) para admin, extensível via JSONB
+export const settings = schema.table("settings", {
+  id: serial("id").primaryKey(),
+  admin_id: integer("admin_id")
+    .notNull()
+    .references(() => admin.id, { onDelete: "cascade" }),
+  data: jsonb("data").notNull().default({}),
+  created_at: timestamp("created_at").defaultNow(),
+  updated_at: timestamp("updated_at").defaultNow(),
+});
 
 // Tabela de administradores
 export const admin = schema.table("admin", {

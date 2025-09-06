@@ -3,15 +3,19 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { fetchHeroContent } from "@/actions/heroContentActions";
 import { HeroContentForm } from "@/components/app/pages/HeroContentForm";
 
+import AdminThemePaletteSection from "@/components/app/AdminThemePaletteSection";
+
 const AdminPage = async () => {
   const heroContent = await fetchHeroContent();
 
   return (
     <SessionProtector requireAuth={true} redirectTo="/login">
-      <main className="min-h-screen flex flex-col items-center bg-gray-50 p-4">
-        <h1 className="text-3xl font-bold mb-8">
+      <main className="min-h-screen flex flex-col items-center bg-[var(--background-color)] p-4 transition-colors duration-300">
+        <h1 className="text-3xl font-bold mb-8 text-[var(--text-primary)]">
           Administração de Conteúdo da Home
         </h1>
+        {/* Client Component para seleção de paleta */}
+        <AdminThemePaletteSection />
         <Tabs defaultValue="hero" className="w-full max-w-3xl">
           <TabsList className="mb-6">
             <TabsTrigger value="hero">Hero</TabsTrigger>
