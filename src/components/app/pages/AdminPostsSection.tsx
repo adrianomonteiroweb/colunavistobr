@@ -2,10 +2,35 @@
 import { useEffect, useState } from "react";
 import { PostForm, PostFormValues } from "./PostForm";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Image from "next/image";
+import { updatePost, deletePost } from "@/actions/postActions";
 
 export const AdminPostsSection = () => {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
+  const [editingPost, setEditingPost] = useState<any | null>(null);
+  const [editLoading, setEditLoading] = useState(false);
+  const handleDeletePost = async (id: number) => {
+    if (window.confirm("Tem certeza que deseja excluir este post?")) {
+      await deletePost(id);
+      setPosts(posts.filter((p) => p.id !== id));
+    }
+  };
+
+  const handleEditPost = (post: any) => {
+    setEditingPost(post);
+  };
+
+  const handleUpdatePost = async (values: PostFormValues) => {
+    if (!editingPost) return;
+    setEditLoading(true);
+    await updatePost(editingPost.id, values);
+    const updated = await fetch("/api/posts").then((res) => res.json());
+    setPosts(updated);
+    setEditingPost(null);
+    setEditLoading(false);
+  };
 
   useEffect(() => {
     fetch("/api/posts")
@@ -73,15 +98,50 @@ export const AdminPostsSection = () => {
                   <p className="text-gray-700 mb-2">{post.description}</p>
                   <div className="flex gap-2 flex-wrap">
                     {images.map((img: string, idx: number) => (
-                      <img
+                      <Image
                         key={idx}
                         src={img}
                         alt="post"
+                        width={80}
+                        height={80}
                         className="w-20 h-20 object-cover rounded border"
                       />
                     ))}
                   </div>
-                  {/* Botões de editar/excluir podem ser adicionados aqui */}
+                  <div className="flex gap-2 mt-4">
+                    <Dialog>
+                      <DialogTrigger>
+                        <Button
+                          variant="outline"
+                          onClick={() => handleEditPost(post)}
+                        >
+                          Editar
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        {editingPost?.id === post.id && (
+                          <PostForm
+                            initialData={{
+                              title: post.title,
+                              description: post.description,
+                              images: post.images || [],
+                            }}
+                            onSubmit={async (values) => {
+                              await handleUpdatePost(values);
+                              setEditingPost(null);
+                            }}
+                            loading={editLoading}
+                          />
+                        )}
+                      </DialogContent>
+                    </Dialog>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleDeletePost(post.id)}
+                    >
+                      Excluir
+                    </Button>
+                  </div>
                 </div>
               );
             })
