@@ -449,17 +449,6 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="social_linkedin" className="text-sm font-medium">
-                LinkedIn
-              </Label>
-              <Input
-                name="social_linkedin"
-                defaultValue={initialData.social_linkedin}
-                placeholder="Ex: https://linkedin.com/in/usuario"
-                className="text-base"
-              />
-            </div>
-            <div className="space-y-2">
               <Label htmlFor="social_youtube" className="text-sm font-medium">
                 YouTube
               </Label>

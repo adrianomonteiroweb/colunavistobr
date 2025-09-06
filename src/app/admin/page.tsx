@@ -55,9 +55,6 @@ const AdminPage = async () => {
               <TabsTrigger value="hero" className="text-lg py-3">
                 Conteúdo da Página Principal
               </TabsTrigger>
-              <TabsTrigger value="future" disabled className="text-lg py-3">
-                Próximas Funcionalidades
-              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="hero" className="space-y-8">
@@ -204,7 +201,7 @@ const AdminPage = async () => {
                           Redes Sociais
                         </h2>
                         <p className="text-gray-600">
-                          Links para Instagram, Facebook, LinkedIn e YouTube
+                          Links para Instagram, Facebook e YouTube
                         </p>
                       </div>
                     </div>
@@ -213,7 +210,6 @@ const AdminPage = async () => {
                       initialData={{
                         social_instagram: heroContent.social_instagram || "",
                         social_facebook: heroContent.social_facebook || "",
-                        social_linkedin: heroContent.social_linkedin || "",
                         social_youtube: heroContent.social_youtube || "",
                       }}
                       section="social"

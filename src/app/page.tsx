@@ -119,15 +119,6 @@ export default function DynamicHero() {
                   <Facebook className="w-6 h-6" />
                 </Link>
               )}
-              {content.social_linkedin && (
-                <Link
-                  href={content.social_linkedin}
-                  target="_blank"
-                  className="p-3 bg-blue-700 text-white rounded-full hover:shadow-lg transition-all duration-300 hover:scale-110"
-                >
-                  <Linkedin className="w-6 h-6" />
-                </Link>
-              )}
               {content.social_youtube && (
                 <Link
                   href={content.social_youtube}
