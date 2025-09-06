@@ -45,6 +45,8 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
     initialData.founder_image_url || ""
   );
   const [isUploading, setIsUploading] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
   const [paymentQrImageUrl, setPaymentQrImageUrl] = useState(
     typeof initialData.payment_qr_image_url === "string" &&
       initialData.payment_qr_image_url.length > 0
@@ -111,104 +113,205 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
         // O Next.js irá chamar saveHeroContent como server action
         // O id já está no form, as URLs são garantidas pelo handlePreSubmit
         // O server action espera (id, data)
-        const data: Record<string, string> = {};
-        for (const [key, value] of formData.entries()) {
-          if (key !== "id") data[key] = value as string;
+        setIsSaving(true);
+        setSaveSuccess(false);
+        try {
+          const data: Record<string, string> = {};
+          for (const [key, value] of formData.entries()) {
+            if (key !== "id") data[key] = value as string;
+          }
+          await saveHeroContent(Number(formData.get("id")), data);
+          setSaveSuccess(true);
+          setTimeout(() => setSaveSuccess(false), 3000); // Remove o feedback após 3 segundos
+        } finally {
+          setIsSaving(false);
         }
-        await saveHeroContent(Number(formData.get("id")), data);
       }}
       onSubmit={handlePreSubmit}
-      className="space-y-4"
+      className="space-y-6"
     >
       <input type="hidden" name="id" value={id} />
       {section === "project" && (
-        <>
-          <div>
-            <Label htmlFor="title">Título</Label>
-            <Input name="title" defaultValue={initialData.title} required />
+        <div className="grid gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="title" className="text-sm font-medium">
+                Título Principal
+              </Label>
+              <Input
+                name="title"
+                defaultValue={initialData.title}
+                required
+                placeholder="Ex: Coluna Visto BR"
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="subtitle" className="text-sm font-medium">
+                Subtítulo
+              </Label>
+              <Input
+                name="subtitle"
+                defaultValue={initialData.subtitle}
+                required
+                placeholder="Ex: ONG de apoio humanitário"
+                className="text-base"
+              />
+            </div>
           </div>
-          <div>
-            <Label htmlFor="subtitle">Subtítulo</Label>
-            <Input
-              name="subtitle"
-              defaultValue={initialData.subtitle}
+
+          <div className="space-y-2">
+            <Label htmlFor="text" className="text-sm font-medium">
+              Descrição Principal
+            </Label>
+            <Textarea
+              name="text"
+              defaultValue={initialData.text}
               required
+              placeholder="Descreva a missão e objetivos da ONG..."
+              className="text-base min-h-[120px]"
             />
           </div>
-          <div>
-            <Label htmlFor="text">Texto</Label>
-            <Textarea name="text" defaultValue={initialData.text} required />
-          </div>
-          <div>
-            <Label htmlFor="image_url">Imagem do Projeto</Label>
-            <div className="flex items-center gap-2">
-              <Input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                onChange={(e) => handleImageUpload(e, "image_url")}
-                disabled={isUploading}
-              />
-              {imageUrl && (
-                <Image
-                  src={imageUrl}
-                  alt="Project"
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 object-cover rounded"
-                  style={{ objectFit: "cover", borderRadius: "0.5rem" }}
-                  unoptimized
-                />
-              )}
+          <div className="space-y-2">
+            <Label htmlFor="image_url" className="text-sm font-medium">
+              Imagem do Projeto
+            </Label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-gray-400 transition-colors">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    onChange={(e) => handleImageUpload(e, "image_url")}
+                    disabled={isUploading}
+                    className="cursor-pointer"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Formatos aceitos: JPG, PNG, GIF (máx. 5MB)
+                  </p>
+                </div>
+                {imageUrl && (
+                  <div className="ml-4 flex-shrink-0">
+                    <div className="relative">
+                      <Image
+                        src={imageUrl}
+                        alt="Project Preview"
+                        width={64}
+                        height={64}
+                        className="h-16 w-16 object-cover rounded-lg border-2 border-gray-200"
+                        unoptimized
+                      />
+                      <div className="absolute -top-1 -right-1 bg-green-500 text-white rounded-full p-1">
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <input type="hidden" name="image_url" value={imageUrl} />
           </div>
-          <div>
-            <Label htmlFor="project_info">Informações do Projeto</Label>
+
+          <div className="space-y-2">
+            <Label htmlFor="project_info" className="text-sm font-medium">
+              Informações Adicionais do Projeto
+            </Label>
             <Textarea
               name="project_info"
               defaultValue={initialData.project_info}
+              placeholder="Informações complementares sobre o projeto..."
+              className="text-base min-h-[100px]"
             />
           </div>
-        </>
+        </div>
       )}
       {section === "founder" && (
-        <>
-          <div>
-            <Label htmlFor="founder_name">Nome da Fundadora</Label>
+        <div className="grid gap-6">
+          <div className="space-y-2">
+            <Label htmlFor="founder_name" className="text-sm font-medium">
+              Nome da Fundadora
+            </Label>
             <Input
               name="founder_name"
               defaultValue={initialData.founder_name}
+              placeholder="Ex: Victoria Barros"
+              className="text-base"
             />
           </div>
-          <div>
-            <Label htmlFor="founder_bio">Bio da Fundadora</Label>
+
+          <div className="space-y-2">
+            <Label htmlFor="founder_bio" className="text-sm font-medium">
+              Biografia da Fundadora
+            </Label>
             <Textarea
               name="founder_bio"
               defaultValue={initialData.founder_bio}
+              placeholder="Conte a história e motivação da fundadora..."
+              className="text-base min-h-[120px]"
             />
           </div>
-          <div>
-            <Label htmlFor="founder_image_url">Foto da Fundadora</Label>
-            <div className="flex items-center gap-2">
-              <Input
-                type="file"
-                accept="image/*"
-                ref={founderFileInputRef}
-                onChange={(e) => handleImageUpload(e, "founder_image_url")}
-                disabled={isUploading}
-              />
-              {founderImageUrl && (
-                <Image
-                  src={founderImageUrl}
-                  alt="Founder"
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 object-cover rounded"
-                  style={{ objectFit: "cover", borderRadius: "0.5rem" }}
-                  unoptimized
-                />
-              )}
+          <div className="space-y-2">
+            <Label htmlFor="founder_image_url" className="text-sm font-medium">
+              Foto da Fundadora
+            </Label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-gray-400 transition-colors">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    ref={founderFileInputRef}
+                    onChange={(e) => handleImageUpload(e, "founder_image_url")}
+                    disabled={isUploading}
+                    className="cursor-pointer"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Formatos aceitos: JPG, PNG, GIF (máx. 5MB)
+                  </p>
+                </div>
+                {founderImageUrl && (
+                  <div className="ml-4 flex-shrink-0">
+                    <div className="relative">
+                      <Image
+                        src={founderImageUrl}
+                        alt="Founder Preview"
+                        width={64}
+                        height={64}
+                        className="h-16 w-16 object-cover rounded-full border-2 border-gray-200"
+                        unoptimized
+                      />
+                      <div className="absolute -top-1 -right-1 bg-green-500 text-white rounded-full p-1">
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <input
               type="hidden"
@@ -216,49 +319,98 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
               value={founderImageUrl}
             />
           </div>
-        </>
+        </div>
       )}
       {section === "payment" && (
-        <>
-          <div>
-            <Label htmlFor="payment_pix">PIX</Label>
-            <Input name="payment_pix" defaultValue={initialData.payment_pix} />
+        <div className="grid gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="payment_pix" className="text-sm font-medium">
+                Chave PIX
+              </Label>
+              <Input
+                name="payment_pix"
+                defaultValue={initialData.payment_pix}
+                placeholder="Ex: email@exemplo.com ou CPF/CNPJ"
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="payment_paypal" className="text-sm font-medium">
+                PayPal
+              </Label>
+              <Input
+                name="payment_paypal"
+                defaultValue={initialData.payment_paypal}
+                placeholder="Ex: https://paypal.me/usuario"
+                className="text-base"
+              />
+            </div>
           </div>
-          <div>
-            <Label htmlFor="payment_paypal">PayPal</Label>
-            <Input
-              name="payment_paypal"
-              defaultValue={initialData.payment_paypal}
-            />
-          </div>
-          <div>
-            <Label htmlFor="payment_info">Informações de Pagamento</Label>
+
+          <div className="space-y-2">
+            <Label htmlFor="payment_info" className="text-sm font-medium">
+              Instruções de Pagamento
+            </Label>
             <Textarea
               name="payment_info"
               defaultValue={initialData.payment_info}
+              placeholder="Instruções detalhadas sobre como fazer doações..."
+              className="text-base min-h-[100px]"
             />
           </div>
-          <div>
-            <Label htmlFor="payment_qr_image_url">Imagem QR Code PIX</Label>
-            <div className="flex items-center gap-2">
-              <Input
-                type="file"
-                accept="image/*"
-                ref={paymentQrFileInputRef}
-                onChange={handlePaymentQrUpload}
-                disabled={isUploading}
-              />
-              {qrImageToShow && (
-                <Image
-                  src={qrImageToShow}
-                  alt="QR Code PIX"
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 object-cover rounded"
-                  style={{ objectFit: "cover", borderRadius: "0.5rem" }}
-                  unoptimized
-                />
-              )}
+          <div className="space-y-2">
+            <Label
+              htmlFor="payment_qr_image_url"
+              className="text-sm font-medium"
+            >
+              Imagem QR Code PIX
+            </Label>
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-gray-400 transition-colors">
+              <div className="flex items-center justify-between">
+                <div className="flex-1">
+                  <Input
+                    type="file"
+                    accept="image/*"
+                    ref={paymentQrFileInputRef}
+                    onChange={handlePaymentQrUpload}
+                    disabled={isUploading}
+                    className="cursor-pointer"
+                  />
+                  <p className="text-xs text-gray-500 mt-1">
+                    Formatos aceitos: JPG, PNG, GIF (máx. 5MB)
+                  </p>
+                </div>
+                {qrImageToShow && (
+                  <div className="ml-4 flex-shrink-0">
+                    <div className="relative">
+                      <Image
+                        src={qrImageToShow}
+                        alt="QR Code PIX Preview"
+                        width={64}
+                        height={64}
+                        className="h-16 w-16 object-cover rounded-lg border-2 border-gray-200"
+                        unoptimized
+                      />
+                      <div className="absolute -top-1 -right-1 bg-green-500 text-white rounded-full p-1">
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M5 13l4 4L19 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
             <input
               type="hidden"
@@ -266,43 +418,101 @@ export const HeroContentForm = ({ id, initialData, section }: Props) => {
               value={paymentQrImageUrl}
             />
           </div>
-        </>
+        </div>
       )}
       {section === "social" && (
-        <>
-          <div>
-            <Label htmlFor="social_instagram">Instagram</Label>
-            <Input
-              name="social_instagram"
-              defaultValue={initialData.social_instagram}
-            />
+        <div className="grid gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="social_instagram" className="text-sm font-medium">
+                Instagram
+              </Label>
+              <Input
+                name="social_instagram"
+                defaultValue={initialData.social_instagram}
+                placeholder="Ex: https://instagram.com/usuario"
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="social_facebook" className="text-sm font-medium">
+                Facebook
+              </Label>
+              <Input
+                name="social_facebook"
+                defaultValue={initialData.social_facebook}
+                placeholder="Ex: https://facebook.com/pagina"
+                className="text-base"
+              />
+            </div>
           </div>
-          <div>
-            <Label htmlFor="social_facebook">Facebook</Label>
-            <Input
-              name="social_facebook"
-              defaultValue={initialData.social_facebook}
-            />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="social_linkedin" className="text-sm font-medium">
+                LinkedIn
+              </Label>
+              <Input
+                name="social_linkedin"
+                defaultValue={initialData.social_linkedin}
+                placeholder="Ex: https://linkedin.com/in/usuario"
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="social_youtube" className="text-sm font-medium">
+                YouTube
+              </Label>
+              <Input
+                name="social_youtube"
+                defaultValue={initialData.social_youtube}
+                placeholder="Ex: https://youtube.com/canal"
+                className="text-base"
+              />
+            </div>
           </div>
-          <div>
-            <Label htmlFor="social_linkedin">LinkedIn</Label>
-            <Input
-              name="social_linkedin"
-              defaultValue={initialData.social_linkedin}
-            />
-          </div>
-          <div>
-            <Label htmlFor="social_youtube">YouTube</Label>
-            <Input
-              name="social_youtube"
-              defaultValue={initialData.social_youtube}
-            />
-          </div>
-        </>
+        </div>
       )}
-      <Button type="submit" className="w-full mt-4" disabled={isUploading}>
-        {isUploading ? "Enviando..." : "Salvar"}
-      </Button>
+      <div className="pt-4 space-y-3">
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={isUploading || isSaving}
+        >
+          {isSaving ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              Salvando...
+            </>
+          ) : isUploading ? (
+            <>
+              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+              Enviando...
+            </>
+          ) : (
+            "Salvar Alterações"
+          )}
+        </Button>
+
+        {saveSuccess && (
+          <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg flex items-center">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            Alterações salvas com sucesso!
+          </div>
+        )}
+      </div>
     </form>
   );
 };

@@ -16,6 +16,7 @@
     "@niledatabase/react": "^4.2.0",
     "@niledatabase/server": "^4.2.0",
     "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.13",
     "@types/bcryptjs": "^3.0.0",
     "@types/dotenv": "^8.2.3",
     "@types/jsonwebtoken": "^9.0.10",
