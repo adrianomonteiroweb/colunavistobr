@@ -2,6 +2,7 @@ import { SessionProtector } from "@/components/app/session-provider";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { fetchHeroContent } from "@/actions/heroContentActions";
 import { HeroContentForm } from "@/components/app/pages/HeroContentForm";
+import { AdminPostsSection } from "@/components/app/pages/AdminPostsSection";
 
 const AdminPage = async () => {
   const heroContent = await fetchHeroContent();
@@ -51,11 +52,17 @@ const AdminPage = async () => {
           </div>
 
           <Tabs defaultValue="hero" className="w-full">
-            <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="hero" className="text-lg py-3">
                 Conteúdo da Página Principal
               </TabsTrigger>
+              <TabsTrigger value="posts" className="text-lg py-3">
+                Gerenciar Posts
+              </TabsTrigger>
             </TabsList>
+            <TabsContent value="posts" className="space-y-8">
+              <AdminPostsSection />
+            </TabsContent>
 
             <TabsContent value="hero" className="space-y-8">
               {heroContent ? (

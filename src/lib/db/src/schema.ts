@@ -53,3 +53,13 @@ export const heroContent = schema.table("hero_content", {
   payment_qr_image_url: varchar("payment_qr_image_url", { length: 255 }),
   updated_at: timestamp("updated_at").defaultNow(),
 });
+
+// Tabela de posts para gerenciamento de conteúdo
+export const post = schema.table("post", {
+  id: serial("id").primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  description: varchar("description", { length: 1024 }).notNull(),
+  images: jsonb("images").notNull().default([]),
+  created_at: timestamp("created_at").defaultNow(),
+  updated_at: timestamp("updated_at").defaultNow(),
+});
