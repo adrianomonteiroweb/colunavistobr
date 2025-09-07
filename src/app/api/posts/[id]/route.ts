@@ -3,10 +3,11 @@ import { PostRepository } from "@/lib/db/src/repositories/PostRepository";
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const resolvedParams = await params;
+    const id = parseInt(resolvedParams.id);
 
     if (isNaN(id) || id <= 0) {
       return NextResponse.json({ error: "ID inválido" }, { status: 400 });
@@ -31,10 +32,11 @@ export async function DELETE(
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const id = parseInt(params.id);
+    const resolvedParams = await params;
+    const id = parseInt(resolvedParams.id);
 
     if (isNaN(id) || id <= 0) {
       return NextResponse.json({ error: "ID inválido" }, { status: 400 });

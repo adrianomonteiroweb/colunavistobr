@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -40,7 +41,6 @@ const BlobUploadTestPage: React.FC = () => {
       setUrl(data.url);
       setProgress(100);
     } catch (err: any) {
-      // eslint-disable-next-line no-console
       console.error("Upload error:", err);
       setError(err?.message || "Upload failed");
     } finally {
@@ -79,9 +79,11 @@ const BlobUploadTestPage: React.FC = () => {
           >
             {url}
           </a>
-          <img
+          <Image
             src={url}
             alt="Uploaded"
+            width={500}
+            height={300}
             className="mt-2 max-w-full h-auto rounded"
           />
         </div>
