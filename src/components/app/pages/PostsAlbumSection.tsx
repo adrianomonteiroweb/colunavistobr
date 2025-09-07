@@ -119,7 +119,7 @@ export const PostsAlbumSection = () => {
           Álbum das Ações
         </h2>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Acompanhe as ações e projetos realizados pela nossa organização
+          Acompanhe as ações e projetos realizados
         </p>
         <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-6 rounded-full"></div>
       </div>
