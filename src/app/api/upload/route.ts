@@ -4,6 +4,16 @@ import { put } from "@vercel/blob";
 export const runtime = "edge";
 
 export async function POST(req: NextRequest) {
+  const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN;
+
+  if (!BLOB_TOKEN) {
+    console.error("BLOB_READ_WRITE_TOKEN not configured");
+    return NextResponse.json(
+      { error: "Server configuration error: BLOB_READ_WRITE_TOKEN not set" },
+      { status: 500 }
+    );
+  }
+
   try {
     const form_data = await req.formData();
     const file = form_data.get("file");
@@ -18,6 +28,7 @@ export async function POST(req: NextRequest) {
       file as File,
       {
         access: "public",
+        token: BLOB_TOKEN,
       }
     );
 

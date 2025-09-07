@@ -60,6 +60,6 @@ export const post = schema.table("post", {
   title: varchar("title", { length: 255 }).notNull(),
   description: varchar("description", { length: 1024 }).notNull(),
   images: jsonb("images").notNull().default([]),
-  created_at: timestamp("created_at").defaultNow(),
-  updated_at: timestamp("updated_at").defaultNow(),
+  created_at: timestamp("created_at").defaultNow().notNull(),
+  updated_at: timestamp("updated_at").defaultNow().notNull(),
 });

@@ -60,16 +60,26 @@ export const PostForm = ({ initialData, onSubmit, loading }: Props) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!title.trim() || !description.trim()) {
+      alert("Título e descrição são obrigatórios");
+      return;
+    }
+
     try {
       const finalImages = await uploadImages();
-      onSubmit({ title, description, images: finalImages });
-      // Reset form after successful submission
-      setTitle("");
-      setDescription("");
-      setImages([]);
-      setFiles([]);
+      await onSubmit({ title, description, images: finalImages });
+
+      // Reset form only if no initial data (creating new post)
+      if (!initialData) {
+        setTitle("");
+        setDescription("");
+        setImages([]);
+        setFiles([]);
+      }
     } catch (error) {
       console.error("Error submitting post:", error);
+      alert("Erro ao salvar o post. Tente novamente.");
     }
   };
 
