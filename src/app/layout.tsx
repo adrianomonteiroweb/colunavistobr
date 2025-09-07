@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/components/app/auth-provider";
@@ -17,8 +17,35 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Coluna Visto BR",
-  description: "Coluna Visto BR",
+  description:
+    "Coluna especializada em vistos brasileiros, imigração e orientações para estrangeiros no Brasil",
+  keywords:
+    "visto brasileiro, imigração, Brasil, documentação, estrangeiros, residência",
+  authors: [{ name: "Coluna Visto BR" }],
+  openGraph: {
+    title: "Coluna Visto BR",
+    description:
+      "Coluna especializada em vistos brasileiros, imigração e orientações para estrangeiros no Brasil",
+    type: "website",
+    locale: "pt_BR",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.svg", sizes: "32x32", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.svg", sizes: "180x180", type: "image/svg+xml" },
+    ],
+  },
+  manifest: "/manifest.json",
 };
+
+export const generateViewport = (): Viewport => ({
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#009C3B",
+});
 
 export default async function RootLayout({
   children,

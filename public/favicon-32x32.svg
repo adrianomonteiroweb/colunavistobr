@@ -1,0 +1,30 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+	<!-- Fundo com gradiente brasileiro -->
+	<defs>
+		<linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" style="stop-color:#1E40AF" />
+			<stop offset="50%" style="stop-color:#2563EB" />
+			<stop offset="100%" style="stop-color:#009C3B" />
+		</linearGradient>
+	</defs>
+	<!-- Fundo arredondado -->
+	<rect width="32" height="32" fill="url(#bg)" rx="6" />
+	<!-- Documento -->
+	<rect x="6" y="4" width="20" height="24" fill="white" rx="2" stroke="#E2E8F0" stroke-width="0.5" />
+	<!-- Título -->
+	<rect x="8" y="6" width="12" height="2" fill="#1E40AF" rx="0.5" />
+	<!-- Linhas de texto -->
+	<rect x="8" y="9" width="10" height="1" fill="#64748B" rx="0.3" />
+	<rect x="8" y="11" width="12" height="1" fill="#64748B" rx="0.3" />
+	<rect x="8" y="13" width="8" height="1" fill="#64748B" rx="0.3" />
+	<rect x="8" y="15" width="11" height="1" fill="#64748B" rx="0.3" />
+	<!-- Carimbo aprovado -->
+	<circle cx="20" cy="22" r="4" fill="#16A34A" />
+	<path d="M18 22 L19 23 L22 20" stroke="white" stroke-width="1.2" fill="none" stroke-linecap="round" />
+	<!-- Pequena bandeira BR -->
+	<rect x="8" y="19" width="8" height="5" fill="#009C3B" rx="0.5" />
+	<polygon points="8,21.5 12,19.5 16,21.5 12,23.5" fill="#FFDF00" />
+	<text x="12" y="22.5" font-family="Arial" font-size="2" font-weight="bold" fill="#002776" text-anchor="middle">
+		BR
+	</text>
+</svg>

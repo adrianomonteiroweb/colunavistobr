@@ -1,0 +1,31 @@
+{
+  "name": "Coluna Visto BR",
+  "short_name": "Visto BR",
+  "description": "Coluna especializada em vistos brasileiros, imigração e orientações para estrangeiros no Brasil",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1E40AF",
+  "theme_color": "#009C3B",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-32x32.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["news", "government", "reference"],
+  "lang": "pt-BR",
+  "dir": "ltr"
+}
