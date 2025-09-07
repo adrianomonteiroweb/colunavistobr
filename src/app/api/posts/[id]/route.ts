@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { PostRepository } from "@/lib/db/src/repositories/PostRepository";
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+interface RouteContext {
+  params: Promise<{ id: string }>;
+}
+
+export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
-    const resolvedParams = await params;
-    const id = parseInt(resolvedParams.id);
+    const params = await context.params;
+    const id = parseInt(params.id);
 
     if (isNaN(id) || id <= 0) {
       return NextResponse.json({ error: "ID inválido" }, { status: 400 });
@@ -30,13 +31,10 @@ export async function DELETE(
   }
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, context: RouteContext) {
   try {
-    const resolvedParams = await params;
-    const id = parseInt(resolvedParams.id);
+    const params = await context.params;
+    const id = parseInt(params.id);
 
     if (isNaN(id) || id <= 0) {
       return NextResponse.json({ error: "ID inválido" }, { status: 400 });

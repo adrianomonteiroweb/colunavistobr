@@ -179,8 +179,8 @@ export default function DynamicHero() {
                           <Image
                             src={content.payment_qr_image_url}
                             alt="QR Code PIX"
-                            width={80}
-                            height={80}
+                            width={120}
+                            height={120}
                             className="mx-auto"
                           />
                         </div>
@@ -225,11 +225,72 @@ export default function DynamicHero() {
 
           {/* Informações de pagamento adicionais */}
           {content.payment_info && (
-            <div className="mt-12 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-6 border border-green-200">
-              <h4 className="text-lg font-semibold text-green-800 mb-3">
-                Como Apoiar
+            <div className="mt-12 bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-200">
+              <h4 className="text-xl font-bold text-green-800 mb-4 text-center">
+                Como Apoiar a Fundadora
               </h4>
-              <p className="text-green-700">{content.payment_info}</p>
+              <p className="text-green-700 mb-6 text-center leading-relaxed">
+                {content.payment_info}
+              </p>
+
+              {/* Informações de pagamento centralizadas */}
+              {content.payment_pix && (
+                <div className="max-w-lg mx-auto">
+                  <div className="bg-white rounded-xl p-8 shadow-sm border border-green-100">
+                    <div className="flex items-center justify-center mb-6">
+                      <div className="bg-green-500 text-white p-3 rounded-lg mr-4">
+                        <svg
+                          className="w-6 h-6"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                        </svg>
+                      </div>
+                      <h5 className="text-xl font-bold text-green-800">
+                        PIX - Doação Rápida
+                      </h5>
+                    </div>
+
+                    <div className="space-y-6 text-center">
+                      <div>
+                        <p className="text-sm text-gray-600 mb-3 font-medium">
+                          Chave PIX:
+                        </p>
+                        <code className="bg-gray-100 px-4 py-3 rounded-lg text-base font-mono block break-all">
+                          {content.payment_pix}
+                        </code>
+                      </div>
+
+                      {content.payment_qr_image_url && (
+                        <div>
+                          <p className="text-sm text-gray-600 mb-4 font-medium">
+                            QR Code:
+                          </p>
+                          <div className="bg-gray-50 p-4 rounded-lg inline-block">
+                            <Image
+                              src={content.payment_qr_image_url}
+                              alt="QR Code PIX"
+                              width={160}
+                              height={160}
+                              className="mx-auto rounded-lg"
+                            />
+                          </div>
+                          <p className="text-xs text-gray-500 mt-2">
+                            Escaneie com seu app bancário
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="mt-6 text-center">
+                <p className="text-green-600 text-sm font-medium">
+                  Toda doação, por menor que seja, faz a diferença! 💚
+                </p>
+              </div>
             </div>
           )}
         </div>

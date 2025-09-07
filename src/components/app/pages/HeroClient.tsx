@@ -179,8 +179,8 @@ const HeroClient: React.FC<{ heroContent: HeroContent }> = ({
                       : PAYMENT_QR_PLACEHOLDER
                   }
                   alt="QR Code PIX"
-                  width={180}
-                  height={180}
+                  width={220}
+                  height={220}
                   className="mx-auto rounded-lg"
                   onError={() => setPaymentQrImageError(true)}
                   priority
